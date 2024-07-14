@@ -1,0 +1,76 @@
+---
+import Layout from "@layouts/Layout.astro";
+import Container from "@components/container.astro";
+import Sectionhead from "@components/sectionhead.astro";
+import PricingCard from "@components/workshop-types.astro";
+
+const pricing = [
+  {
+    name: "I'm a Maritime Professional",
+    price: "I'm interested in...",
+    popular: false,
+    features: [
+    "Information Systems",
+    "Prompt Engineering",
+    "Data and Analytics",
+    "Commonly used data types",   
+    "AI-First Architecture",
+    "Geographic information systems (GIS) ",
+    "Program Interface (API)"
+    ],
+    button: {
+      text: "Join Waitlist",
+      link: "/maritime-waitlist-contact",
+    },
+  },
+  {
+    name: "I'm a Maritime Developer",
+    price: "I'm interested in...",
+    popular: true,
+    features: [
+      "Utilize latest AIS Technologies",
+      "Understanding Ship Operations",
+      "Maritime Regulations and Compliance",
+      "Maritime IOT Solutions",
+      "Advanced Integrations",
+      "Priority Support",
+      "Geographic information systems (GIS) "
+    ],
+    button: {
+      text: "Join Waitlist",
+      link: "/developer-waitlist-contact",
+    },
+  },
+  // {
+  //   name: "I'm a Maritime Investor",
+  //   popular: false,
+  //   features: [
+  //     "All Pro Features",
+  //     "Unlimited Custom domains",
+  //     "99.99% Uptime SLA",
+  //     "SAML & SSO Integration",
+  //     "Dedicated Account Manager",
+  //     "24/7 Phone Support",
+  //   ],
+  //   button: {
+  //     text: "Contact us",
+  //     link: "/contact",
+  //   },
+  // },
+];
+---
+
+<Layout title="Courses">
+  <Container>
+    <Sectionhead>
+      <Fragment slot="title">Workshops</Fragment>
+      <Fragment slot="desc">
+        Connect and Learn from Maritime Technology Leaders from around the globe.
+      </Fragment>
+    </Sectionhead>
+
+    <div class="grid md:grid-cols-2 gap-10 mx-auto max-w-screen-lg mt-12">
+      {pricing.map((item) => <PricingCard plan={item} />)}
+    </div>
+  </Container>
+</Layout>

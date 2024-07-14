@@ -1,0 +1,49 @@
+---
+
+---
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const sidebar = document.getElementById("sidebar");
+      const backdrop = document.getElementById("backdrop");
+      const closeButton = document.getElementById("closeSidebar");
+      const loadingMessage = document.getElementById("loadingMessage");
+      const sidebarContent = document.getElementById("sidebarContent");
+  
+      const toggleSidebar = (show, url = '') => {
+        if (sidebar && backdrop && loadingMessage && sidebarContent) {
+          if (show) {
+            sidebar.classList.remove("translate-x-full");
+            backdrop.classList.remove("hidden");
+            loadingMessage.style.display = "flex";
+            sidebarContent.style.display = "none";
+            if (url) sidebarContent.setAttribute('src', url);
+          } else {
+            sidebar.classList.add("translate-x-full");
+            backdrop.classList.add("hidden");
+          }
+        }
+      };
+  
+      document.querySelectorAll("[id^='shipdash'], [id^='csuma-policy']").forEach(button => {
+        button.addEventListener("click", (e) => {
+          const url = (e.currentTarget as HTMLElement).getAttribute('title') ?? '';
+          toggleSidebar(true, url);
+       
+          setTimeout(() => {
+            if (loadingMessage && sidebarContent) {
+              loadingMessage.style.display = "none";
+              sidebarContent.style.display = "block";
+            }
+          }, 1500);
+        });
+      });
+  
+      closeButton?.addEventListener("click", () => toggleSidebar(false));
+      backdrop?.addEventListener("click", () => toggleSidebar(false));
+      window.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") toggleSidebar(false);
+      });
+    });
+  </script>
+  

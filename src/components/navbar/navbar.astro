@@ -1,0 +1,158 @@
+---
+import Link from "@components/ui/link.astro";
+import Container from "@components/container.astro";
+import Dropdown from "./dropdown.astro";
+import { Image } from "astro:assets";
+import SILogo from "assets/shipping_intel_brand_logo.png";
+import { Astronav, MenuItems, MenuIcon } from "astro-navbar";
+import SidebarScript from "@components/sidebarScript.astro";
+import loader from "../../assets/gif.gif"
+
+const menuitems = [
+  {
+    title: "Technology",
+    path: "/copilot",
+  },
+  // Add more data to have more options in demo and the link will connect the side bar to desired website
+  {
+    title: "Demos",
+    badge: true,
+    path: "/",
+    children: [
+      { title: "ShipDASH", id: "shipdash", link: "https://www.shippingintel.com/operations" },
+      {
+        title: "CSUMA Policy",
+        id: "csuma-policy",
+        link: "https://www.shippingintel.com/",
+      },
+    ],
+  },
+  {
+    title: "Workshops",
+    path: "/workshops",
+  },
+  {
+    title: "About",
+    path: "/about",
+  },
+];
+---
+
+<Container>
+  <header class="flex flex-col lg:flex-row justify-between items-center my-5">
+    <Astronav>
+      <div class="flex w-full lg:w-auto items-center justify-between">
+        <a href="/">
+          <Image src={SILogo} alt="ShippingIntel Brand Logo" height="80" />
+        </a>
+        <div class="block lg:hidden">
+          <MenuIcon class="w-4 h-4 text-gray-800" />
+        </div>
+      </div>
+      <MenuItems class="hidden w-full lg:w-auto mt-2 lg:mt-0 lg:flex lg:flex-row lg:gap-3">
+        <ul class="flex flex-col lg:flex-row lg:gap-3">
+          {menuitems.map((item, index) => (
+            <>
+              {item.children && (
+                <Dropdown
+                  title={item.title}
+                  children={item.children}
+                  lastItem={index === menuitems.length - 1}
+                />
+              )}
+
+              {!item.children && (
+                <li>
+                  <a
+                    href={item.path}
+                    class="flex lg:px-3 py-2 items-center text-gray-600 hover:text-gray-900">
+                    <span>{item.title}</span>
+                  </a>
+                </li>
+              )}
+            </>
+          ))}
+        </ul>
+
+        <div class="lg:hidden flex items-center mt-3 gap-4 rounded-md bg-[#008993] hover:bg-[#03A7B4]">
+          <Link
+            href="/contact"
+            class="bg-[#008993] hover:bg-[#03A7B4]"
+            size="md"
+            block>
+            Contact Us
+          </Link>
+        </div>
+      </MenuItems>
+    </Astronav>
+    <div>
+      <div class="hidden lg:flex items-center gap-4 rounded-md bg-[#008993] hover:bg-[#03A7B4]">
+        <Link
+          href="/contact"
+          class="bg-[#008993] px-3.5 py-2.5 text-white hover:bg-[#03A7B4] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+          size="md">
+          Contact Us
+        </Link>
+      </div>
+    </div>
+  </header>
+  <!-- side bar -->
+  <div id="backdrop" class="fixed inset-0 bg-black opacity-50 hidden"></div>
+  <div
+    id="sidebar"
+    class="fixed right-0 top-0 w-full lg:max-w-[600px] h-full shadow-md z-50 bg-white transform translate-x-full transition-transform duration-300">
+    <!-- Close Button -->
+    <span id="closeSidebar" class="absolute hover:cursor-pointer top-0 left-0 w-[20px]  m-4 mt-0 text-xl">&times;</span>
+    <div id="loadingMessage" class="loading-message flex items-center justify-center h-full">
+      <Image src={loader} alt="loader" class="w-[30px]" />
+    </div>
+
+    <iframe id="sidebarContent"  class="w-full h-[100vh] border-none hidden"></iframe>
+  </div>
+<SidebarScript/>
+</Container>
+
+<!-- <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const sidebar = document.getElementById("sidebar");
+    const backdrop = document.getElementById("backdrop");
+    const closeButton = document.getElementById("closeSidebar");
+    const loadingMessage = document.getElementById("loadingMessage");
+    const sidebarContent = document.getElementById("sidebarContent");
+
+    const toggleSidebar = (show, url = '') => {
+      if (sidebar && backdrop && loadingMessage && sidebarContent) {
+        if (show) {
+          sidebar.classList.remove("translate-x-full");
+          backdrop.classList.remove("hidden");
+          loadingMessage.style.display = "flex";
+          sidebarContent.style.display = "none";
+          if (url) sidebarContent.setAttribute('src', url);
+        } else {
+          sidebar.classList.add("translate-x-full");
+          backdrop.classList.add("hidden");
+        }
+      }
+    };
+
+    document.querySelectorAll("[id^='shipdash'], [id^='csuma-policy']").forEach(button => {
+      button.addEventListener("click", (e) => {
+        const url = (e.currentTarget as HTMLElement).getAttribute('title') ?? '';
+        toggleSidebar(true, url);
+     
+        setTimeout(() => {
+          if (loadingMessage && sidebarContent) {
+            loadingMessage.style.display = "none";
+            sidebarContent.style.display = "block";
+          }
+        }, 1500);
+      });
+    });
+
+    closeButton?.addEventListener("click", () => toggleSidebar(false));
+    backdrop?.addEventListener("click", () => toggleSidebar(false));
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") toggleSidebar(false);
+    });
+  });
+</script> -->

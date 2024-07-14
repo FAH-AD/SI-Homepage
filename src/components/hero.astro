@@ -1,0 +1,77 @@
+---
+import { Picture } from "astro:assets";
+import im_a_ship from "assets/im_a_ship.jpg";
+import im_a_developer from "assets/im_a_developer.jpg";
+import Link from "@components/ui/link.astro";
+import { Icon } from "astro-icon/components";
+
+const {id, open} = Astro.props;
+---
+
+<main
+  class="grid lg:grid-cols-2 place-items-center pt-16 pb-8 md:pt-12 md:pb-24">
+  <div>
+    <h1
+      class="text-5xl lg:text-6xl xl:text-7xl font-bold lg:tracking-tight xl:tracking-tighter">
+      AI Solutions. Customized for Maritime.
+    </h1>
+    <p class="text-lg mt-4 text-slate-600 max-w-xl">
+      Seamless Shipping Solutions. Leveraging Advanced Technology for Efficient Operations and 
+      Rapid Problem-Solving.<wbr /> Backed by six decades of Maritime and Technology experience.
+    </p>
+    <div class="mt-6 flex flex-col sm:flex-row gap-3">
+      <Link
+        href="https://medium.com/shipping-intel"
+        class="flex gap-1 items-center justify-center"
+        rel="noopener"
+        target="_blank">
+        <!-- <Icon class="text-white w-5 h-5" name="bx:bxs-cloud-download" /> -->
+         Follow us on Medium
+      </Link>
+      <Link
+        size="lg"
+        style="outline"
+        rel="noopener"
+        href="https://www.linkedin.com/company/shippingintelligence/"
+        class="flex gap-1 items-center justify-center"
+        target="_blank">
+        <!-- <Icon class="text-black w-4 h-4" name="bx:bxl-github" /> -->
+         Connect on Linkedin
+      </Link>
+    </div>
+    
+  </div>
+  <div class="py-6 md:order-1 md:block">
+
+    <a href ="/copilot">
+      <div class="relative">
+        <Picture
+        src={im_a_ship}
+        alt="ship background"
+        widths={[200, 400, 600]}
+        sizes="(max-height: 300px) 100vw, 620px"
+        loading="eager"
+        format="avif"
+        />
+        <div class="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center">
+          <p class="text-white text-2xl">Talk to your operational data.</p>
+        </div> 
+      </div>
+    </a>
+
+    <a href = "/workshops" class="relative">
+      <div >
+        <Picture
+        src={im_a_developer}
+        alt="developer background "
+        widths={[200, 400, 600]}
+        sizes="(max-height: 300px) 100vw, 620px"
+        loading="eager"
+        format="avif"
+        />
+        <div class="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center">
+          <p class="text-white text-2xl">I'm a maritime software developer</p>
+        </div>
+      </div>
+    </a>
+</main></a>
